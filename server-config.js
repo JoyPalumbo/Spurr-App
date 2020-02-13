@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
 const reqTo = require('./server/router.js');
+
+// const socketIo = require('socket.io');
+
 const passport = require('passport');
 const rp = require('request-promise');
 // const LocalStrategy = require('passport-local').Strategy;
@@ -14,6 +17,21 @@ require('./dbConnection');
 const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 const app = express();
+
+//web socket config
+// const server = require('http').createServer(app);
+// const io = socketIo.listen(server);
+
+// app.use(express.static(__dirname + '/bower_components'));
+
+// app.get('/', function (req, res, next) {
+//   res.sendFile(__dirname + '/client/index.html');
+// });
+
+// io.on('connection', function (socket) {
+//   console.log('a user connected');
+// });
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
