@@ -1,6 +1,7 @@
 angular
   .module('Confess-Ctrl', [])
   .controller('confessCtrl', function(
+    $http,
     $rootScope,
     $scope,
     SpurrFact,
@@ -97,34 +98,35 @@ angular
       outer_style: JSON.stringify($scope.styleOut),
     };
 
+    let city;
+    let state;
+
     $scope.setLocation = () => {
       console.log('set location');
-      new Promise(resolve => {
-        navigator.geolocation.getCurrentPosition(pos => {
-          console.log(pos);
-          const geolocate = {
-            lat: pos.coords.latitude,
-            long: pos.coords.longitude,
-          };
-          console.log(geolocate);
-          $scope.secret.location = geolocate;
-          $scope.location = geolocate;
-        });
+
+      navigator.geolocation.getCurrentPosition(pos => {
+        console.log(pos);
+        const geolocate = {
+          lat: pos.coords.latitude,
+          long: pos.coords.longitude,
+        };
+        console.log(geolocate);
+        geolocate;
+        return $http({
+          method: 'GET',
+          url: `http://open.mapquestapi.com/geocoding/v1/reverse?key=r5u2tW2cYMmt1xEPWbqaQpGPWvphL5m5&location=${geolocate.lat},${geolocate.long}`,
+        })
+          .then(result => {
+            city = result.data.results[0].locations[0].adminArea5;
+            state = result.data.results[0].locations[0].adminArea3;
+            // location = `${city}, ${state}`;
+            $scope.location = `${city}, ${state}`;
+            $scope.secret.location = `${city}, ${state}`;
+          })
+          .catch(err => console.error(err));
       });
     };
-    $scope.setLocation(location);
-
-    // SpurrFact.geo()
-    //   .then(citySt => {
-    //     console.log('Got it', citySt);
-    //     $scope.secret.location = citySt;
-    //     $scope.$apply();
-    //   })
-    //   .catch(error => {
-    //     console.log('error');
-    //     $scope.secret.location = 'Earth';
-    //     $scope.$apply();
-    //   });
+    $scope.setLocation(`${city}, ${state}`);
 
     /**
      * Sets styles of $scope.secret object
@@ -212,7 +214,7 @@ angular
         secretBuilder.date = null;
       } else if (
         !$scope.showLocation ||
-        $scope.location === 'Getting location...'
+        $scope.location === `${city}, ${state}`
       ) {
         secretBuilder.location = null;
       }
