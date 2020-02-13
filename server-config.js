@@ -10,6 +10,8 @@ const rp = require('request-promise');
 // const LocalStrategy = require('passport-local').Strategy;
 require('./config/passport')(passport);
 require('./dbConnection');
+//add twilio client to send secret texts
+const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 const app = express();
 
@@ -27,6 +29,19 @@ app.post('/api/users/signup', passport.authenticate('local-signup'), (req, res) 
 app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) => {
   res.json(req.body.username);
 });
+
+//twilio api for messages
+app.post('/api/text', (req, res) => {
+  console.log('body', req.body);
+  client.messages
+  .create({
+    from: '+14088444148',
+    body: req.body.body,
+    to: `+1${req.body.to}`
+   })
+  .then(message => console.log(message.sid))
+  .catch(err => console.log('text error', err))
+})
 
 app.get('/api/imagequery',
 (req, res, next) => {
@@ -69,7 +84,6 @@ app.get('/api/imagequery',
     })
     .catch(err => console.err('ERROR:', err));
 });
-
 
 app.get('/#!/signout', (req, res) => {
   req.logout();
