@@ -25,6 +25,7 @@ angular.module('Confess-Fact', [])
       $window.location.href = '#!/receive';
     });
 
+    //queries for message backgrounds
   const queryImage = query =>
     $http({
       method: 'GET',
@@ -34,9 +35,25 @@ angular.module('Confess-Fact', [])
       },
     }).then(imagesUrls => imagesUrls);
 
+    //send secret SMS function
+    const texter = (num, secret) => {
+    $http({
+      method: 'POST',
+      url: '/api/text',
+      data: {
+        "to": num,
+        "body": secret.message
+      }
+    }).then(() => {
+      console.log(secret.message)
+      $window.location.href = '#!/receive';
+    })
+  }
+
   return {
     images,
     post: postSpurr,
     query: queryImage,
+    texter: texter
   };
 });
