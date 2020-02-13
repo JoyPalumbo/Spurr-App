@@ -13,6 +13,14 @@ require('./dbConnection');
 
 const app = express();
 
+//web socket config
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+io.on('connection', function (socket) {
+  console.log('a user connected');
+});
+
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
 app.use(bodyParser.urlencoded({ extended: true }));
