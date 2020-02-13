@@ -221,4 +221,9 @@ angular
       secretBuilder.message = SpurrFact.esc(secretBuilder.message);
       confessFact.post(secretBuilder, $rootScope.user);
     };
+
+    $scope.sendText = (num, secret) => {
+      console.log(`sending that secret to ${$scope.num}`);
+      confessFact.texter($scope.num, $scope.secret);
+    };
   });
