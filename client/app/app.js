@@ -10,9 +10,19 @@ const router = function ($routeProvider, $httpProvider) {
       controller: 'receiveCtrl',
       authenticate: true,
     })
+    .when('/messages', {
+      templateUrl: '../views/messages.html',
+      controller: 'messagesCtrl',
+      authenticate: true,
+    })
     .when('/secrets', {
       templateUrl: '../views/saved.html',
       controller: 'savedCtrl',
+      authenticate: true,
+    })
+    .when('/messages', {
+      templateUrl: '../views/messages.html',
+      controller: 'messagesCtrl',
       authenticate: true,
     })
     .when('/about', {

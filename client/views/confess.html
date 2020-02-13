@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <div class="confess">
-
   <div class="interface">
     <h1>Confess</h1>
 
     <div class="text">
-      <select ng-model="selectedFont" ng-options="font for font in fonts" ng-change="setFont(selectedFont, null, null)">
-         <option value="" disabled selected style="display: none;">Font</option>
+      <select
+        ng-model="selectedFont"
+        ng-options="font for font in fonts"
+        ng-change="setFont(selectedFont, null, null)"
+      >
+        <option value="" disabled selected style="display: none;">Font</option>
       </select>
 
-      <select ng-model="selectedSize" ng-options="size for (size, num) in sizes" ng-change="setFont(null, selectedSize, null)">
-         <option value="" disabled selected style="display: none;">Size</option>
+      <select
+        ng-model="selectedSize"
+        ng-options="size for (size, num) in sizes"
+        ng-change="setFont(null, selectedSize, null)"
+      >
+        <option value="" disabled selected style="display: none;">Size</option>
       </select>
-      <br><br>
+      <br /><br />
 
-      <input type="text" ng-model="textColor" placeholder="Text color">
+      <input type="text" ng-model="textColor" placeholder="Text color" />
       <button ng-click="setFont(null, null, textColor)">Set color</button>
-      <br><br>
+      <br /><br />
     </div>
 
     <div class="background">
-      <input type="text" ng-model="backgroundColor" placeholder="Background color">
+      <input
+        type="text"
+        ng-model="backgroundColor"
+        placeholder="Background color"
+      />
       <button ng-click="setBackground(null, backgroundColor)">Set color</button>
-      <br><br>
+      <br /><br />
 
       <!-- <input type="text" ng-model="searchImage" placeholder="Search Getty images"> -->
-      <button ng-click="searchForImage(searchImage)" name="" value="" >Set Background</button>
-      <br><br>
-      <button ng-click="setBackground()" name="" value="" >Clear Spurr Background</button>
-      <br><br>
+      <button ng-click="searchForImage(searchImage)" name="" value="">
+        Set Background
+      </button>
+      <br /><br />
+      <button ng-click="setBackground()" name="" value="">
+        Clear Spurr Background
+      </button>
+      <br /><br />
     </div>
 
     <table>
@@ -37,40 +52,55 @@
       </tr>
       <tr>
         <td>
-          Location <input type="checkbox" checked ng-model="showLocation">
+          Location <input type="checkbox" checked ng-model="showLocation" />
         </td>
-        <td>
-          Date <input type="checkbox" checked ng-model="showDate">
-        </td>
+        <td>Date <input type="checkbox" checked ng-model="showDate" /></td>
       </tr>
       <tr>
         <td>
-          Recipient <input type="checkbox" checked ng-model="showRecipient">
+          Recipient <input type="checkbox" checked ng-model="showRecipient" />
         </td>
-        <td>
-          Sender <input type="checkbox" checked ng-model="showSender">
-        </td>
+        <td>Sender <input type="checkbox" checked ng-model="showSender" /></td>
       </tr>
     </table>
-    <br>
 
+    <br />
+    <!-- Send Secret SMS Start -->
+    <div class="secretText">
+      <input ng-init="num=''" ng-model="num" placeholder="confess via SMS" />
+      <button class="bigButton" ng-click="sendText(num, secret.message);">
+        Secret SMS
+      </button>
+      <br /><br />
+    </div>
+    <!-- Send Secret SMS End -->
     <button class="bigButton" ng-click="confess(secret)">Submit</button>
   </div>
 
   <!-- modal -->
   <div id="myModal" class="modal">
     <div class="modal-search">
-      <input type="text" ng-model="searchImage" placeholder="Search Getty images">
-      <button ng-click="searchForImage(searchImage)" name="" value="" >Search Getty Images</button>
+      <input
+        type="text"
+        ng-model="searchImage"
+        placeholder="Search Getty images"
+      />
+      <button ng-click="searchForImage(searchImage)" name="" value="">
+        Search Getty Images
+      </button>
     </div>
     <div class="modal-content">
       <div ng-repeat="(id,image) in images" class="modal-item">
-        <img ng-click="setBackground(image)" class="modalimage" src="{{image}}">
+        <img
+          ng-click="setBackground(image)"
+          class="modalimage"
+          src="{{image}}"
+        />
         <p>{{id}}</p>
       </div>
     </div>
   </div>
-<!-- modal end -->
+  <!-- modal end -->
 
   <div>
     <div id="confessional" class="message" ng-style="styleOut">
@@ -80,14 +110,30 @@
           <li ng-show="showDate" class="right">{{ secret.date }}</li>
         </ul>
       </div>
-      <input type="text"
-      class="msgText left"
-      ng-model="secret.recipient"
-      ng-show="showRecipient"
-      ng-style="styleIn"
-      maxlength="15">
-      <textarea id="msgbody" rows="4" class="msgText" ng-model="secret.message" ng-style="styleIn" maxlength="100"></textarea>
-      <input type="text" class="msgText right" ng-model="secret.sender" ng-show="showSender" ng-style="styleIn" maxlength="15">
+      <input
+        type="text"
+        class="msgText left"
+        ng-model="secret.recipient"
+        ng-show="showRecipient"
+        ng-style="styleIn"
+        maxlength="15"
+      />
+      <textarea
+        id="msgbody"
+        rows="4"
+        class="msgText"
+        ng-model="secret.message"
+        ng-style="styleIn"
+        maxlength="100"
+      ></textarea>
+      <input
+        type="text"
+        class="msgText right"
+        ng-model="secret.sender"
+        ng-show="showSender"
+        ng-style="styleIn"
+        maxlength="15"
+      />
     </div>
     <h2>Type directly on the card to update text!</h2>
   </div>

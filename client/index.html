@@ -12,7 +12,9 @@
       <ul>
         <li><a href="#!/about">About</a></li>
         <li ng-show="user()"><a href="#!/confess">Confess</a></li>
+        <li ng-show="user()"><a href="#!/messages">Messages</a></li>
         <li ng-show="user()"><a href="#!/secrets">View Secrets</a></li>
+        <li ng-show="user()"><a href="#!/messages">Messages</a></li>
         <li ng-show="!user()"><a href="#!/signup">Sign up</a></li>
         <li ng-show="!user()"><a href="#!/signin">Sign in</a></li>
         <li ng-show="user()" ng-click="signout()"><a href="">Sign out</a></li>
@@ -21,6 +23,11 @@
 
     <div ng-view=""></div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <!-- <script>
+    const socket = io.connect('http://localhost:8000');
+    console.log(io);
+  </script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-messages.min.js"></script>
