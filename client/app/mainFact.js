@@ -23,29 +23,8 @@ angular.module('Spurr-Fact', []).factory('SpurrFact', function() {
     return res;
   };
 
-  // const geo = () =>
-  //   new Promise(resolve => {
-  //     navigator.geolocation.getCurrentPosition(pos => {
-  //       console.log(pos);
-  //       // const geocoder = new google.maps.Geocoder();
-  //       const geolocate = {
-  //         lat: pos.coords.latitude,
-  //         long: pos.coords.longitude,
-  //       };
-  //       console.log(geolocate);
-  //       return(geolocate);
-  //       // geocoder.geocode({ latLng: geolocate }, (results, status) => {
-  //       //   const result = results.length > 4 ? results[5] : results[2];
-  //       //   if (status === google.maps.GeocoderStatus.OK) {
-  //       //     resolve(`${result.formatted_address}`);
-  //       //   }
-  //       // });
-  //     });
-  //   });
-
   return {
     test: tester,
     esc: escapeText,
-    geo,
   };
 });
