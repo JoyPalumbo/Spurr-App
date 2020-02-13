@@ -13,13 +13,20 @@ require('./dbConnection');
 
 const app = express();
 
-//web socket config
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+// //web socket config
+// const server = require('http').createServer(app);
+// const io = require('socket.io')(server);
 
-io.on('connection', function (socket) {
-  console.log('a user connected');
-});
+// app.use(express.static(__dirname + '/bower_components'));
+
+// app.get('/', function (req, res, next) {
+//   res.sendFile(__dirname + '/client/index.html');
+// });
+
+// io.on('connection', function (socket) {
+//   console.log('a user connected');
+// });
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
