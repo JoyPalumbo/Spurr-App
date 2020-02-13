@@ -23,3 +23,17 @@ io.on('connection', function (socket) {
 server.listen(app.get('port'), () => {
   console.log('listening on ', app.get('port'));
 });
+
+// var express = require('express');
+// var app = express();
+// var server = require('http').createServer(app);
+// var io = require('socket.io').listen(server);
+// users = [];
+// connections = [];
+
+// server.listen(process.env.PORT || 8000);
+
+// app.get('/', function)
+
+
+
